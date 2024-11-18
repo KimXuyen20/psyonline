@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main-content %}
+
+<!-- ========================= SECTION MAIN ========================= -->
+<section class="section-intro padding-y-sm">
+    <div class="container">
+        <div class="intro-banner-wrap">
+            <img src="{% static 'images/banners/2.png' %}" class="img-fluid rounded" alt="Banner">
+        </div>
+    </div>
+</section>
+<!-- ========================= SECTION MAIN END ========================= -->
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+    <div class="container">
+        <header class="section-heading">
+            <h2>Khám phá Tâm Lý Học</h2>
+        </header>
+        <p>
+            Tâm lý học là một lĩnh vực hấp dẫn, nghiên cứu về hành vi và tư duy của con người.
+            Từ việc hiểu rõ bản thân đến cải thiện các mối quan hệ, tâm lý học giúp chúng ta phát triển và sống hạnh phúc hơn.
+        </p>
+        <p>
+            Chúng tôi cung cấp nhiều tài liệu và công cụ giúp bạn khám phá các khía cạnh của tâm lý học, bao gồm các bài viết, khóa học, và hỗ trợ tư vấn.
+            Cùng tham gia với chúng tôi trong hành trình khám phá bản thân và nâng cao chất lượng cuộc sống.
+        </p>
+        <a href="javascript: history.back()" class="btn btn-black"> &laquo; Go back</a>
+    </div>
+</section>
+<!-- ========================= SECTION CONTENT END ========================= -->
+
+<!-- ========================= SECTION ========================= -->
+<section class="section-name bg padding-y">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" align="justify">
+                <h3>Tư vấn tâm lý online là gì?</h3>
+                <p>
+                    Tư vấn tâm lý online là một phương thức hỗ trợ tâm lý gián tiếp thông qua các nền tảng kỹ thuật số như mạng xã hội, ứng dụng di động, email, và nhiều hình thức khác.
+                </p>
+                <ul>
+                    <li>Tư vấn tâm lý online qua cuộc gọi video,</li>
+                    <li>Tư vấn tâm lý online qua cuộc gọi thoại,</li>
+                    <li>Tư vấn tâm lý online qua tin nhắn,</li>
+                    <li>Tư vấn tâm lý online qua chat trên các ứng dụng như Zalo.</li>
+                </ul>
+                <p>
+                    Hiện tại, tư vấn tâm lý online qua chat hoặc tin nhắn đang dần trở thành lựa chọn phổ biến, được nhiều người ưa chuộng do tính tiện lợi, giúp tiết kiệm thời gian và chi phí đi lại.
+                </p>
+            </div>
+            <div class="col-md-4" align="justify">
+                <h3>Những trường hợp nên tư vấn tâm lý online:</h3>
+                <ul>
+                    <li>
+                        Khi cảm thấy căng thẳng, lo âu hay gặp phải những vấn đề về sức khỏe tinh thần mà bạn không biết nên chia sẻ cùng ai, đừng ngần ngại tìm đến các chuyên gia tâm lý.
+                    </li>
+                    <li>
+                        Dù bạn là học sinh đang đối mặt với áp lực học tập hay là một người trưởng thành gặp khó khăn trong các mối quan hệ, công việc, tham vấn tâm lý online có thể giúp bạn giải tỏa tâm lý và tìm hướng đi đúng đắn.
+                    </li>
+                    <li>
+                        Hiện nay, có rất nhiều hình thức tư vấn tâm lý online phổ biến như qua email, điện thoại, mạng xã hội, và các ứng dụng di động.
+                        Trong số đó, tư vấn qua chat hoặc tin nhắn miễn phí là phương pháp đang được ưa chuộng nhất.
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h3>Tại sao tư vấn Tâm lý online chat miễn phí được ưa chuộng?</h3>
+                <p align="justify">
+                    Tư vấn tâm lý online qua chat miễn phí là một phương thức hỗ trợ tâm lý từ xa, cho phép người dùng kết nối với các chuyên gia tâm lý thông qua tin nhắn trên các ứng dụng như Messenger, Zalo, hoặc qua các nền tảng tư vấn chuyên dụng.
+                </p>
+                <p align="justify">
+                    Việc giữ được sự ẩn danh giúp nhiều người tự tin hơn trong việc giãi bày suy nghĩ và cảm xúc của mình.
+                    Đặc biệt, người dùng có thể dễ dàng tiếp cận với nhiều chuyên gia tâm lý từ các lĩnh vực khác nhau trên toàn cầu, từ đó tìm được người phù hợp nhất với nhu cầu và tình huống của mình.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ========================= SECTION END ========================= -->
+
+<!-- ========================= SECTION ========================= -->
+<section class="section-name padding-y-sm">
+    <div class="container">
+        <header class="section-heading">
+            <a href="" class="btn btn-outline-primary float-right">See all</a>
+            <h3 class="section-title">CÁC RẮC RỐI THƯỜNG GẶP</h3>
+        </header>
+        <div class="row">
+            {% for blog in blogs %}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="" class="img-wrap"> <img src="{{blog.image.url}}" alt="Blog Image"> </a>
+                    <figcaption class="info-wrap">
+                        <a href="" class="title">{{blog.blog_name}}</a>
+                    </figcaption>
+                </div>
+            </div> <!-- col.// -->
+            {% endfor %}
+        </div> <!-- row.// -->
+    </div>
+</section>
+<!-- ========================= SECTION END ========================= -->
+
+
+
+{% endblock main-content %}

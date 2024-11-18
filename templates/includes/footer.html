@@ -1,0 +1,35 @@
+{% load static%}
+
+<footer class="section-footer border-top">
+    <div class="container">
+        <section class="footer-top padding-y">
+            <div class="row">
+                <div class="col-12 col-lg-3 col-sm-12 mb-2">
+                    <!-- Content -->
+                
+                    <img src="{% static 'images/logoo.png' %}" alt="Logo" width="100" >
+        
+                
+                    <p class="mt-2 text-dark">
+                      © 2024 Copyright: PSY&X
+                    </p>
+                  </div>
+                <aside class="col-md-3">
+                    <h5 class="title">Customer service</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Frequently asked questions</a></li>
+                    </ul>
+                </aside> <!-- col.// -->
+                <aside class="col-md-3">
+                    <h5 class="title">My account</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="">Sign in</a></li>
+                        {% comment %} <li><a href="#">My orders</a></li>
+                        <li><a href="#">My wishlist</a></li> {% endcomment %}
+                    </ul>
+                </aside> <!-- col.// -->
+            </div> <!-- row.// -->
+        </section> <!-- footer-top.// -->
+    </div> <!-- container.// -->
+</footer> <!-- section-footer.// -->
