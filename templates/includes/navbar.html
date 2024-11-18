@@ -50,11 +50,12 @@
             </div>
           </div>
           {% else %}
-            <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url 'login' %}">Login</a> / 
-                <span><a href="{% url 'registerUser' %}" class="cs-color cs-popup-joinus-btn login-popup ">Register</a></span><a class="btn btn-outline-primary" href="">
-                Register
-                Restaurant </a>
-            {% endif %}
+          <div>
+            <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url 'login' %}">Login</a> /
+            <a href="{% url 'registerUser' %}" class="cs-color cs-popup-joinus-btn login-popup">Register</a>
+            <a class="btn btn-outline-primary" href="{% url 'registerDoctor' %}">Register Doctor</a>
+          </div>
+        {%endif%}
         </div>
     </div>
       </div> <!-- container.// -->
