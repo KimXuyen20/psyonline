@@ -68,6 +68,9 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.email
+    
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
@@ -75,12 +78,12 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
-    # def get_role(self):
-    #     if self.role == 1:
-    #         user_role = 'Vendor'
-    #     elif self.role == 2:
-    #         user_role = 'Customer'
-    #     return user_role
+    def get_role(self):
+        if self.role == 1:
+            user_role = 'Doctor'
+        elif self.role == 2:
+            user_role = 'Customer'
+        return user_role
 
 
 class UserProfile(models.Model):

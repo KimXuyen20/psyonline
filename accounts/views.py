@@ -3,13 +3,16 @@ from django.contrib import messages, auth
 from accounts.forms import UserForm
 from accounts.models import User, UserProfile
 from django.core.exceptions import PermissionDenied
-
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .utils import detectUser, send_verification_email
 from doctor.forms import DoctorForm
 # Create your views here.
 
 
 # Restrict the vendor from accessing the customer page
-def check_role_vendor(user):
+def check_role_doctor(user):
     if user.role == 1:
         return True
     else:
@@ -24,10 +27,10 @@ def check_role_customer(user):
         raise PermissionDenied
 
 def registerUser(request):
-    # if request.user.is_authenticated:
-    #     messages.warning(request, 'You are already logged in!')
-    #     return redirect('dashboard')
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are already logged in!')
+        return redirect('myAccount')
+    elif request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
             # Create the user using create_user method
@@ -41,9 +44,7 @@ def registerUser(request):
             user.save()
 
             # Send verification email
-            # mail_subject = 'Please activate your account'
-            # email_template = 'accounts/emails/account_verification_email.html'
-            # send_verification_email(request, user, mail_subject, email_template)
+            send_verification_email(request, user)
             messages.success(request, 'Your account has been registered sucessfully!')
             return redirect('login')
         else:
@@ -56,24 +57,46 @@ def registerUser(request):
     }
     return render(request, 'accounts/registerUser.html', context)
 
+def activate(request, uidb64, token):
+    # Activate the user by setting the is_active status to True
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User._default_manager.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
 
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Congratulation! Your account is activated.')
+        return redirect('myAccount')
+    else:
+        messages.error(request, 'Invalid activation link')
+        return redirect('myAccount')
+        
 def login(request):
-    # if request.user.is_authenticated:
-    #     messages.warning(request, 'You are already logged in!')
-    #     return redirect('myAccount')
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
+    # Nếu người dùng đã đăng nhập, chuyển hướng họ ra khỏi trang đăng nhập
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are already logged in!')
+        return redirect('home')
 
+    if request.method == 'POST':
+        # Lấy dữ liệu từ form
+        email = request.POST.get('email').strip()
+        password = request.POST.get('password')
+
+        # Xác thực người dùng
         user = auth.authenticate(email=email, password=password)
 
         if user is not None:
+            # Đăng nhập người dùng
             auth.login(request, user)
             messages.success(request, 'You are now logged in.')
-            return redirect('home')
+            return redirect('home')  # Hoặc URL mong muốn
         else:
-            messages.error(request, 'Invalid login credentials')
-            return redirect('login')
+            messages.error(request, 'Invalid login credentials. Please try again.')
+            return redirect('login')  # Hiển thị lại form login với thông báo lỗi
+
     return render(request, 'accounts/login.html')
 
 def logout(request):
@@ -81,6 +104,11 @@ def logout(request):
     messages.info(request, 'You are logged out.')
     return redirect('login')
 
+@login_required(login_url='login')
+def myAccount(request):
+    user = request.user
+    redirectUrl = detectUser(user)
+    return redirect(redirectUrl)
 
 def registerDoctor(request):
     if request.method == 'POST':
@@ -106,7 +134,8 @@ def registerDoctor(request):
             user_profile = UserProfile.objects.get(user=user)
             doctor.user_profile = user_profile
             doctor.save()
-            
+
+            send_verification_email(request, user)
             messages.success(request, 'Your account has been registered sucessfully! Please wait for the approval.')
             return redirect('login')
         else:
@@ -124,3 +153,12 @@ def registerDoctor(request):
     }
     
     return render(request, 'accounts/registerDoctor.html', context)
+
+@login_required(login_url='login')
+@user_passes_test(check_role_customer)
+def custDashboard(request):
+    return render(request, 'accounts/custDashboard.html')
+@login_required(login_url='login')
+@user_passes_test(check_role_doctor)
+def doctorDashboard(request):
+    return render(request, 'accounts/doctorDashboard.html')

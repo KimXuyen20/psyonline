@@ -1,75 +1,114 @@
 {% extends "base.html" %}
-{% load static%}
+{% load static %}
 
-{% block main-content%}
+{% block main-content %}
 <section class="section-content padding-y">
 
   <!-- ============================ COMPONENT REGISTER   ================================= -->
   <div class="card mx-auto" style="max-width: 500px; margin-top:50px;">
-        <article class="card-body">
-   
+    <article class="card-body">
       <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
+
       <form action="{% url 'registerDoctor' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="form-row">
-            <div class="col form-group">
-              <label>First name</label>
-                {{ form.first_name }}
-            </div> <!-- form-group end.// -->
-            <div class="col form-group">
-              <label>Last name</label>
-                {{ form.last_name }}
-            </div> <!-- form-group end.// -->
-          </div> <!-- form-row end.// -->
-  
-          <div class="form-row">
-                <div class="col form-group">
-                    <label>Specialty name</label>{{d_form.doctor_name}}
-                </div>
-              <div class="col form-group">
-                  <label>Doctor License</label>{{d_form.doctor_license}}
-              </div>
-          </div>
-          <div class="form-row">
-            <div class="col form-group ">
-              <label>Email Address</label>
-              {{form.email}}
-            </div> <!-- form-group end.// -->
-            <div class="col form-group ">
-              <label>User Name</label>
-              {{form.username}}
-            </div> <!-- form-group end.// -->
-          </div> <!-- form-row.// -->
-          <div class="form-row">
-            <div class="col form-group ">
-              <label>Create password</label>
-                {{ form.password }}
-            </div> <!-- form-group end.// -->
-            <div class="col form-group ">
-              <label>Repeat password</label>
-              {{form.confirm_password}}
-            </div> <!-- form-group end.// -->
-          </div>
-          {{ form.email.errors }}
-          {{ form.non_field_errors }}
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    {% include 'includes/alerts.html'%}
-                </div>
-            </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Register  </button>
-            </div> <!-- form-group// -->
-           
-            </form>
-    </article><!-- card-body.// -->
-    </div> <!-- card .// -->
-      <p class="text-center mt-4">Have an account? <a href="{% url 'login' %}">Log In</a></p>
-      <br><br>
+        <!-- Hiển thị lỗi không liên quan đến trường -->
+        {% for error in form.non_field_errors %}
+          <div class="alert alert-danger" role="alert">
+            {{ error }}
+          </div>
+        {% endfor %}
+
+        <!-- First Name và Last Name -->
+        <div class="form-row">
+          <div class="col form-group">
+            <label>First name</label>
+            {{ form.first_name }}
+            {% for error in form.first_name.errors %}
+              <small style="color: red;">{{ error }}</small>
+            {% endfor %}
+          </div>
+          <div class="col form-group">
+            <label>Last name</label>
+            {{ form.last_name }}
+            {% for error in form.last_name.errors %}
+              <small style="color: red;">{{ error }}</small>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Specialty Name và Doctor License -->
+        <div class="form-row">
+          <div class="col form-group">
+            <label>Specialty name</label>
+            {{ d_form.doctor_name }}
+            {% for error in d_form.doctor_name.errors %}
+              <small style="color: red;">{{ error }}</small>
+            {% endfor %}
+          </div>
+          <div class="col form-group">
+            <label>Doctor License</label>
+            {{ d_form.doctor_license }}
+            {% for error in d_form.doctor_license.errors %}
+              <small style="color: red;">{{ error }}</small>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Email và Username -->
+        <div class="form-row">
+          <div class="col form-group">
+            <label>Email Address</label>
+            {{ form.email }}
+            {% for error in form.email.errors %}
+              <small style="color: red;">{{ error }}</small>
+            {% endfor %}
+          </div>
+          <div class="col form-group">
+            <label>Username</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}
+              <small style="color: red;">{{ error }}</small>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Password và Confirm Password -->
+        <div class="form-row">
+          <div class="col form-group">
+            <label>Create password</label>
+            {{ form.password }}
+            {% for error in form.password.errors %}
+              <small style="color: red;">{{ error }}</small>
+            {% endfor %}
+          </div>
+          <div class="col form-group">
+            <label>Repeat password</label>
+            {{ form.confirm_password }}
+            {% for error in form.confirm_password.errors %}
+              <small style="color: red;">{{ error }}</small>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Thông báo -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {% include 'includes/alerts.html' %}
+          </div>
+        </div>
+
+        <!-- Nút Submit -->
+        <div class="form-group">
+          <button type="submit" class="btn bg-primary btn-black btn-block"> Register </button>
+        </div>
+      </form>
+    </article>
+  </div>
+
+  <p class="text-center mt-4">Have an account? <a href="{% url 'login' %}">Log In</a></p>
+  <br><br>
   <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
-  
-  
-  </section>
-  
-  {% endblock %}
+
+</section>
+{% endblock %}
