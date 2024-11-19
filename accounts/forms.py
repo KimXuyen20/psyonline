@@ -3,8 +3,14 @@ from .models import User
 
 
 class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Enter Password',
+        'class': 'form-control',
+    }))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Confirm Password'
+    }))
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'password']
@@ -19,3 +25,14 @@ class UserForm(forms.ModelForm):
                 "Password does not match!"
             )
 
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs['placeholder'] = 'Enter First Name'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'Enter last Name'
+        self.fields['username'].widget.attrs['placeholder'] = 'Enter User Name'
+        self.fields['email'].widget.attrs['placeholder'] = 'Enter Email Address'
+       
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+
+    

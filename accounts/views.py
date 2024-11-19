@@ -30,13 +30,6 @@ def registerUser(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            # Create the user using the form
-            # password = form.cleaned_data['password']
-            # user = form.save(commit=False)
-            # user.set_password(password)
-            # user.role = User.CUSTOMER
-            # user.save()
-
             # Create the user using create_user method
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
@@ -51,8 +44,8 @@ def registerUser(request):
             # mail_subject = 'Please activate your account'
             # email_template = 'accounts/emails/account_verification_email.html'
             # send_verification_email(request, user, mail_subject, email_template)
-            # messages.success(request, 'Your account has been registered sucessfully!')
-            return redirect('registerUser')
+            messages.success(request, 'Your account has been registered sucessfully!')
+            return redirect('login')
         else:
             print('invalid form')
             print(form.errors)
@@ -77,7 +70,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'You are now logged in.')
-            return redirect('login')
+            return redirect('home')
         else:
             messages.error(request, 'Invalid login credentials')
             return redirect('login')
