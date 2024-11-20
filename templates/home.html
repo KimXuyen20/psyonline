@@ -84,16 +84,16 @@
 <section class="section-name padding-y-sm">
     <div class="container">
         <header class="section-heading">
-            <a href="" class="btn btn-outline-primary float-right">See all</a>
+            <a href="{% url 'blog'%}" class="btn btn-outline-primary float-right">See all</a>
             <h3 class="section-title">CÁC RẮC RỐI THƯỜNG GẶP</h3>
         </header>
         <div class="row">
-            {% for blog in blogs %}
+            {% for blog in blogs|slice:":5" %}
             <div class="col-md-3">
                 <div class="card card-product-grid">
                     <a href="" class="img-wrap"> <img src="{{blog.images.url}}" alt="Blog Image"> </a>
                     <figcaption class="info-wrap">
-                        <a href="" class="title">{{blog.blog_name}}</a>
+                        <a href="{% url 'blog_detail' blog_slug=blog.slug  %}" class="title">{{blog.blog_name}}</a>
                     </figcaption>
                 </div>
             </div> <!-- col.// -->
@@ -102,7 +102,5 @@
     </div>
 </section>
 <!-- ========================= SECTION END ========================= -->
-
-
 
 {% endblock main-content %}

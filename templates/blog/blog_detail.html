@@ -12,6 +12,8 @@
                     <article class="gallery-wrap"> 
                         <div class="img-big-wrap">
                             <a href="#"><img src="{{single_blog.images.url}}" alt="Blog Image"></a>
+
+                            <h8><a>Posted on {{single_blog.created_date}}</a></h8>
                         </div> <!-- img-big-wrap.// -->
                     </article> <!-- gallery-wrap .end// -->
                 </aside>
@@ -20,9 +22,11 @@
                     <article class="content-body">
                         <h2 class="title">{{single_blog.blog_name}}</h2>
                         
-                        <p>{{single_blog.description}}</p>
+                        <!-- Render HTML content from description using |safe -->
+                        <p class="fs-5 mb-4">{{ single_blog.blog_body|safe }}<p>
+                        
                         <hr>
-                        <a href="./product-detail.html" class="btn btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+
                     </article> <!-- product-info-aside .// -->
                 </main> <!-- col.// -->
             </div> <!-- row.// -->
