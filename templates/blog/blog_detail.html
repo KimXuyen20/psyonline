@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main-content %}
+
+<section class="section-content padding-y bg">
+    <div class="container">
+    
+        <div class="card">
+            <div class="row flex-column">
+                <aside class="col-12">
+                    <article class="gallery-wrap"> 
+                        <div class="img-big-wrap">
+                            <a href="#"><img src="{{single_blog.images.url}}" alt="Blog Image"></a>
+                        </div> <!-- img-big-wrap.// -->
+                    </article> <!-- gallery-wrap .end// -->
+                </aside>
+                
+                <main class="col-12">
+                    <article class="content-body">
+                        <h2 class="title">{{single_blog.blog_name}}</h2>
+                        
+                        <p>{{single_blog.description}}</p>
+                        <hr>
+                        <a href="./product-detail.html" class="btn btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+                    </article> <!-- product-info-aside .// -->
+                </main> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card.// -->
+
+    </div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %}
