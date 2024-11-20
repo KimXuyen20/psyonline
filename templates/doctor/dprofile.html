@@ -22,8 +22,7 @@
 			<article class="card">
 				<header class="card-header">
 					<strong class="d-inline-block mr-3">Logged in:</strong>
-					<span>Doctor.{{user.full_name}}</span>
-                    <p class="mb-0"><i class="fa-solid fa-location-dot" style="color: #74C0FC;"></i> Address: {{doctor.user_profile.full_address}}</p>
+					<span>{{user.full_name}}</span>
 				</header>
 			
 		
@@ -41,10 +40,9 @@
 						<div class="col-md-6">
 							<div class="card" style="text-align:center;">
 								<div class="card-body">
-									<img src="{{doctor.user_profile.profile_picture.url}}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
-									<p class="mb-0"><i class="fa-solid fa-envelope" style="color: #74C0FC;"></i> Email: {{user.email}}</p>
-                                    <p class="mb-0"><i class="fa-solid fa-clipboard" style="color: #74C0FC;"></i> Specialty Name: {{doctor.doctor_name}}</p>
-                                    
+									<img src="https://www.w3schools.com/howto/img_avatar.png" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
+									<p class="mb-0">{{user.email}}</p>
+									<p class="mb-0">{{user.full_name}}</p>
 								</div>
 							</div>
 						</div>

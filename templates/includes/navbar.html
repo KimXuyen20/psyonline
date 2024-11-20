@@ -1,68 +1,66 @@
 {%load static%}
 
-<header>
 <section class="header-main border-bottom">
-    <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-2 col-md-3 col-6">
-        <a href="{% url 'home' %}" class="brand-wrap">
-          <img  src="{% static './images/logoo.png' %}" width="180">
-        </a> <!-- brand-wrap.// -->
-      </div>
-      <div class="col-lg col-sm col-md col-6 flex-grow-0">
-        <div class="category-wrap dropdown d-inline-block float-right">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-bars"></i> All category
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Foods and Drink</a>
-            <a class="dropdown-item" href="#">Home interior</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Category 1</a>
-            <a class="dropdown-item" href="#">Category 2</a>
-            <a class="dropdown-item" href="#">Category 3</a>
-          </div>
-        </div>  <!-- category-wrap.// -->
-      </div> <!-- col.// -->
+	<div class="container">
+<div class="row align-items-center">
+	<div class="col-lg-2 col-md-3 col-6">
+    <a href="{% url 'home' %}" class="brand-wrap">
+      <img  src="{% static './images/logoo.png' %}" width="180">
+    </a> <!-- brand-wrap.// -->
+  </div>
+  
+	<div class="col-lg-6 col-12 col-sm-12">
+		<form action="#" class="search">
+			<div class="input-group w-100">
+			    <input type="text" class="form-control" placeholder="Search">
+			    <div class="input-group-append">
+			      <button class="btn btn-primary" type="submit">
+			        <i class="fa fa-search"></i> Search
+			      </button>
+			    </div>
+		    </div>
+		</form> <!-- search-wrap .end// -->
+	</div> <!-- col.// -->
+	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <div class="login-option">
+      {% if user.is_authenticated %}
 
-      <div class="col-lg  col-md-6 col-sm-12 col">
-        <form action="" class="search" method='GET'>
-          <div class="input-group w-100">
-              <input type="text" class="form-control" style="width:50%;" placeholder="Search" name="keyword" required>
-    
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
-                  <i class="fa fa-search"></i>
-                </button>
-              </div>
-            </div>
-        </form> <!-- search-wrap .end// -->
-      </div> <!-- col.// -->
-      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <div class="login-option">
-          {% if user.is_authenticated %}
-    
-          <div class="widget-header">
-            <small class="title text-muted">Welcome {{user.first_name}}!</small>
-            <div>
-              <a href="{% url 'myAccount' %}">Dashboard</a> <span class="dark-transp"> | </span>
-              <a href="{% url 'logout' %}"> Logout</a>
-            </div>
-          </div>
-          {% else %}
-          <div>
-            <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url 'login' %}">Login</a> /
-            <a href="{% url 'registerUser' %}" class="cs-color cs-popup-joinus-btn login-popup">Register</a>
-            <a class="btn btn-outline-primary" href="{% url 'registerDoctor' %}">Register Doctor</a>
-          </div>
-        {%endif%}
+      <div class="widget-header">
+        <small class="title text-muted">Welcome {{user.first_name}}!</small>
+        <div>
+          <a href="{% url 'myAccount' %}">Dashboard</a> <span class="dark-transp"> | </span>
+          <a href="{% url 'logout' %}"> Logout</a>
         </div>
+      </div>
+      {% else %}
+      <div>
+        <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url 'login' %}">Login</a> /
+        <a href="{% url 'registerUser' %}" class="cs-color cs-popup-joinus-btn login-popup">Register</a>
+        <a class="btn btn-outline-primary" href="{% url 'registerDoctor' %}">Register Doctor</a>
+      </div>
+    {%endif%}
     </div>
-      </div> <!-- container.// -->
+</div>
+
+
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="#">Features</a>
+      <a class="nav-item nav-link" href="#">Pricing</a>
+      <a class="nav-item nav-link disabled" href="#">Disabled</a>
+    </div>
+  </div>
+</div> <!-- row.// -->
+
+	</div> <!-- container.// -->
+
 </section> <!-- header-main .// -->
+
+</header> <!-- section-header.// -->
+
+
+
+
   
-  
-  
-  
-  </header> <!-- section-header.// -->
   

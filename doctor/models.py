@@ -9,7 +9,7 @@ class Doctor(models.Model):
     doctor_name = models.CharField(max_length=50)
    
     doctor_license = models.ImageField(upload_to='doctor/license')
-    is_approved = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 

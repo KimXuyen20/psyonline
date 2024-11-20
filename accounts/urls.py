@@ -12,5 +12,5 @@ urlpatterns = [
     path('doctorDashboard/', views.doctorDashboard, name='doctorDashboard'),
     path('myAccount/', views.myAccount, name='myAccount'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
-
+    path('doctor/', include('doctor.urls')),
 ]
