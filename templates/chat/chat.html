@@ -1,66 +1,61 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% load static %}
+{% block main-content %}
 
-{% block main-content%}
 
 <section>
     <div class="container py-5">
-  
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-8 col-lg-6 col-xl-4">
-  
-          <div class="card" id="chat1" style="border-radius: 15px;">
-            <div
-              class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
-              style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
-              <i class="fas fa-angle-left"></i>
-              <p class="mb-0 fw-bold">Live chat</p>
-              <i class="fas fa-times"></i>
-            </div>
-            
-            <div id='chat_container' class="overflow-y-auto grow">
-                <ul id='chat_messages' class="flex flex-col justify-end gap-2 p-4">
-                    {% for message in chat_messages%}
-                    {% if message.author == user %}
-                        <div class="flex justify-end mb-4">
-                            <div class="bg-green-200 rounded-l-lg rounded-tr-lg p-4 max-w-[75%]">
-                                <span>{{message.body}}</span>
-                            </div>
-                            <div class="flex items-end">
-                                <svg height="13" width="8" >
-                                    <path fill="#bbf7d0" d="M6.3,10.4C1.5,8.7,0.9,5.5,0,0.2L0,13l5.2,0C7,13,9.6,11.5,6.3,10.4z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        {% else %}
-                        <div>
-                            <div class="d-flex flex-row justify-content-start mb-4">
-                                <img src="{{message.author.profile_picture.url}}"
-                                    alt="avatar 1" style="width: 45px; height: 100%;">
-                                <div class="flex items-end" >
-                                    <svg height="10" width="8" >
-                                        <path fill="white" d="M2.8,13L8,13L8,0.2C7.1,5.5,6.5,8.7,1.7,10.4C-1.6,11.5,1,13,2.8,13z"></path>
-                                    </svg>
-                                </div>
-                                <div class="bg-white p-4 max-w-[75%] rounded-r-lg rounded-tl-lg">
-                                    <span>{{ message.body }}</span>
-                                </div>  
-                            </div>
-                            <div class="text-sm font-light py-1 ml-10">
-                                <span class="text-gray-400">{{message.author.full_name }}</span>
-                            </div>
-                        </div>
-                        {% endif %}
-                    {%endfor%}
-                </ul>
-            </div>
-            
-          </div>
-  
-        </div>
-      </div>
-  
-    </div>
-  </section>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-6">
+                <div class="card" id="chat1">
+                    <div class="card-header d-flex justify-content-between align-items-center p-3">
+                        <h5 class="mb-0">Chat</h5>
+                        <div id="online-icon"></div>
+                        <span id="online-count" class="pr-1"></span>online
+                    </div>
 
+                    <div id='chat_messages' class="card-body" style="position: relative; height: 400px; overflow-y: auto;">
+                        {% for message in chat_messages reversed%}
+                        {% if message.author == user %}
+                        <!-- Tin nhắn của người dùng -->
+                            <div class="d-flex flex-row justify-content-end mb-4">
+                                <div class="p-3 me-3 border bg-body-tertiary" style="border-radius: 15px;">
+                                    <span class="small mb-0">{{ message.body }}</span>
+                                </div>
+                                <img src="{{ message.author.userprofile.profile_picture.url }}"
+                                    alt="avatar" 
+                                    style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
+                            </div>
+                        {% else %}
+                            <!-- Tin nhắn của người khác -->
+                            <div class="d-flex flex-row justify-content-start mb-4">
+                                <img src="{{ message.author.userprofile.profile_picture.url }}"
+                                    alt="avatar" 
+                                    style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
+                                <div class="p-3 me-3 border" style="border-radius: 15px; background-color: rgba(57, 192, 237, 0.2);">
+                                    <span class="small mb-0">{{ message.body }}</span>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                        <div class="sticky bottom-0 z-10 p-2 bg-gray-800">
+                            <div class="flex flex-col gap-4 items-center rounded-xl px-2 py-2">
+                                <form id="chat_message_form" class="w-full" 
+                                    hx-post="{% url 'chat' %}" 
+                                    hx-target="#chat_messages" 
+                                    hx-swap="beforeend" 
+                                    _="on htmx:afterRequest reset() me">
+                                    {% csrf_token %}
+                                    {{ form }}
+                                </form> 
+                            </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

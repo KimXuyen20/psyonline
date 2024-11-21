@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, User
+
+from psyonline import settings
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -103,3 +105,9 @@ class UserProfile(models.Model):
 
     def full_address(self):
         return f'{self.address}, {self.city}, {self.country}'
+    
+    @property
+    def avatar(self):
+        if self.profile_picture:
+            return self.images.url
+        return f'{settings.STATIC_URL}images/avatar.svg'

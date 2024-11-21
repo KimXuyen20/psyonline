@@ -1,0 +1,21 @@
+{% if message.author == user %}
+<!-- Tin nhắn của người dùng -->
+    <div class="d-flex flex-row justify-content-end mb-4">
+        <div class="p-3 me-3 border bg-body-tertiary" style="border-radius: 15px;">
+            <span class="small mb-0">{{ message.body }}</span>
+        </div>
+        <img src="{{ message.author.userprofile.profile_picture.url }}"
+            alt="avatar" 
+            style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
+    </div>
+{% else %}
+    <!-- Tin nhắn của người khác -->
+    <div class="d-flex flex-row justify-content-start mb-4">
+        <img src="{{ message.author.userprofile.profile_picture.url }}"
+            alt="avatar" 
+            style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
+        <div class="p-3 me-3 border" style="border-radius: 15px; background-color: rgba(57, 192, 237, 0.2);">
+            <span class="small mb-0">{{ message.body }}</span>
+        </div>
+    </div>
+{% endif %}
