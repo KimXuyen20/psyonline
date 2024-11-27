@@ -3,6 +3,6 @@
         <a class="list-group-item {% if '/accounts/custDashboard/' == request.path or '/customer/' == request.path %}active{% endif %}" href="{% url 'custDashboard' %}"> <i class="fa-regular fa-address-card"></i>Account overview </a>
         <a class="list-group-item" href="#"> <i class="fa-solid fa-clock-rotate-left" > </i> Consulting history</a>
         <a class="list-group-item {% if 'profile' in request.path %}active{% endif %}" href="{%url 'cprofile'%}"><i class="fa-solid fa-id-badge"></i>Setting profile </a>
-        <a class="btn btn-primary btn-block" href="{% url 'logout' %}"> <i class="fa-solid fa-toggle-on fa-rotate-180" style="color: #74C0FC;"></i> <span class="text">Log out</span> </a>
+        <a class="btn btn-block" href="{% url 'logout' %}"> <i class="fa-solid fa-toggle-on fa-rotate-180" ></i> <span class="text">Log out</span> </a>
     </ul>
 </aside> <!-- col.// -->

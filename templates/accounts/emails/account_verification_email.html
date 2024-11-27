@@ -1,6 +1,6 @@
 {% autoescape off %}
 
-H {{user.full_name}}
+Hello!!! {{user.full_name}}
 
 Please click on below link to confirm your registration.
 http://{{domain}}{% url 'activate' uidb64=uid token=token %}
